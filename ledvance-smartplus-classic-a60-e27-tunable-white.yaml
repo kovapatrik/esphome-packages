@@ -1,0 +1,82 @@
+substitutions:
+  # Default name
+  name: "ledvance-light-bulb"
+  # Default friendly name
+  friendly_name: "LEDVANCE Light Bulb"
+  # Define logging level: NONE, ERROR, WARN, INFO (Default), DEBUG, VERBOSE, VERY_VERBOSE
+  log_level: "INFO"
+  # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken
+  wifi_fast_connect: "false"
+  # Project Name
+  project_name: "kovapatrik.LEDVANCE_Smart+_Classic_A60_E27_Tunable_White"
+  # Projection version denotes the release version of the yaml file, allowing checking of deployed vs latest version
+  project_version: "1.0.0"
+
+esphome:
+  name: "${name}"
+  friendly_name: "${friendly_name}"
+  name_add_mac_suffix: true
+  project:
+    name: ${project_name}
+    version: ${project_version}
+
+dashboard_import:
+  package_import_url: github://kovapatrik/esphome-packages/ledvance-smartplus-classic-a60-e27-tunable-white.yaml
+
+bk72xx:
+  board: generic-bk7231t-qfn32-tuya
+
+logger:
+  level: ${log_level}
+
+api:
+
+ota:
+  platform: esphome
+
+wifi:
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap: {}
+  fast_connect: "${wifi_fast_connect}"
+
+captive_portal:
+
+web_server:
+  port: 80
+
+text_sensor:
+  - platform: version
+    name: "Version"
+    icon: mdi:cube-outline
+
+  - platform: libretiny
+    version:
+      name: LibreTiny Version
+
+sensor:
+  - platform: uptime
+    name: Uptime
+    update_interval: 60s
+    icon: mdi:clock-outline
+
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+    icon: mdi:wifi
+
+output:
+  - platform: libretiny_pwm
+    id: output_cold
+    pin: P8
+  - platform: libretiny_pwm
+    id: output_warm
+    pin: P9
+
+light:
+  - platform: cwww
+    id: light_cwww
+    name: Light
+    cold_white_color_temperature: 6500 K
+    warm_white_color_temperature: 2700 K
+    cold_white: output_cold
+    warm_white: output_warm
