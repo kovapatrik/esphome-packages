@@ -8,7 +8,7 @@ substitutions:
   # Enables faster network connections, with last connected SSID being connected to and no full scan for SSID being undertaken
   wifi_fast_connect: "false"
   # Restore the light state upon reboot to state:
-  restore_mode: RESTORE_DEFAULT_OFF
+  restore_mode: RESTORE_AND_ON
   # Project Name
   project_name: "kovapatrik.LEDVANCE_Smart+_Classic_A60_E27_Tunable_White"
   # Projection version denotes the release version of the yaml file, allowing checking of deployed vs latest version
