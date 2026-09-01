@@ -118,7 +118,7 @@ sensor:
         - if:
             condition:
               and:
-                - lambda: "return !id(knob).state;"
+                - lambda: "return id(knob).state;"
                 - light.is_on: light1
             then:
               - lambda: |-
